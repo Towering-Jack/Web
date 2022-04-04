@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Third</title>
+    <style>
+        /* 标签选择器 */
+        p {
+            color: red;
+            font-size: 24px;
+            background-color: whitesmoke;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        /* 类选择器 */
+        .one_color {
+            color: blueviolet;
+        }
+
+        .two_font {
+            /* 格式：font: style weight size/line-height family */
+            /* 先写复合属性，style和weight可以省略 */
+            font: italic 500 32px/2 宋体;
+
+            font-size: 20px;
+            font-weight: 700;
+            font-style: italic;
+            /* 无衬线字体 */
+            font-family: 微软雅黑, 宋体, sans-serif;
+            
+            /* 首行缩进两字符 */
+            text-indent: 2em;
+            /* 字符间距 */
+            letter-spacing: 2px;
+            text-align: left;
+            /* underline下划线, line-througt删除线, overline上划线, none无装饰线 */
+            text-decoration: underline;
+
+            line-height: 1.5;
+        }
+
+        /* id选择器，配合js使用，在一个页面中是唯一的，只能选中一个标签 */
+        #three {
+            background-color: antiquewhite;
+        }
+
+        /* 通配符选择器，能找到所有的标签，一般只用作以下两个地方 */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+    <link rel="stylesheet" href="../css/3.css">
+</head>
+
+<body>
+    <p>这是一个p标签</p>
+
+    <div id="three">这是一个dir标签</div>
+
+    <!-- 一个标签可以使用多个类名，用空格隔开 -->
+    <!-- 层叠性，后面的渲染会覆盖前面的 -->
+    <p class="one_color two_font">这是第二个p标签这是第二个p标签这是第二个p标签这是第二个p标签这是第二个p标签这是第二个p标签这是第二个p标签这是第二个p标签这是第二个p标签</p>
+
+    <span style="color: purple; font-size: 20px;">这是一个span标签</span>
+
+    <h1>没有用CSS设置</h1>
+</body>
+
+</html>

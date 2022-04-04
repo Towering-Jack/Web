@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // 这是一个输入框
+        prompt('请输入内容：')
+        // 弹出警示框
+        alert('这是一个警示框')
+        // 弹出确认框
+        confirm("这是一个确认框")
+
+        // 控制台输出
+        console.log('控制台输出123456')
+        // 页面输出
+        document.write("Hello World!")
+
+        var aa
+        let a = 1
+        let b
+        let c = null
+        let arr = [1, 2, 3]
+        document.write(a)
+        document.write(b) // undefined
+        document.write(arr[1])
+
+        let d = "123456"
+        // 强制类型转换：Number、parseInt、parseFloat、String
+        document.write(Number(c))
+
+        // 算数运算符、if、switch、while、for用法一样
+        // ===：恒等于（会判断类型）；!==：恒不等于
+
+        arr.push(12.1) // 在数组末尾增加元素
+        arr.unshift(0) // 在数组开头增加元素
+        document.write(arr)
+
+        arr.pop() // 在数组末尾删除元素
+        arr.shift() // 在数组开头删除元素
+        arr.splice(0, 2) // 从指定位置删除指定个元素
+
+        function getName() {
+            document.write("Hello")
+        }
+
+        getName()
+
+        // 匿名函数
+        let fun = function () {
+            document.write(987)
+        };
+        fun();
+        (function () {
+            document.write(456)
+        })();
+
+        // 对象
+        let person = {
+            name: "jack",
+            age: 18,
+
+            sayHi: function () {
+                document.write("hi~")
+            }
+        }
+
+        person.gender = "男" // 添加属性
+        delete person.age // 删除属性
+
+        // 遍历对象
+        for (let k in person) {
+            document.write(k) // 打印属性名
+            document.write(obj[k]) // 打印属性值
+        }
+    </script>
+</head>
+
+<body onload="alert('123')">
+
+</body>
+
+</html>

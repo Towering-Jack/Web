@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fifth</title>
+    <style type="text/css">
+        /* 优先级：继承<通配符<标签<类<id<行内样式<!important */
+
+        /* 权重叠加计算（复合选择器） */
+        /* (行内, id, 类, 标签) */
+
+        /* (0, 2, 0, 0) */
+        #father #son {
+            color: blue;
+        }
+
+        /* (0, 1, 1, 1) */
+        #father p.c2 {
+            color: black;
+        }
+
+        /* (0, 0, 2, 2) */
+        div.c1 p.c2 {
+            color: red;
+        }
+
+        /* 继承, 最低 */
+        #father {
+            color: green !important;
+        }
+
+        /* 继承, 最低 */
+        div#father.c1 {
+            color: yellow;
+        }
+        
+        div.text {
+            width: 800px;
+            height: 400px;
+            background-color: pink;
+
+            /* width style color */
+            /* style: solid实线/dashed虚线/dotted点线 */
+            border: 10px solid red;
+            border-bottom: 5px dashed blue;
+
+            /* 4上右下左（顺时针）；3上/左右/下；2上下/左右 */
+            padding: 20px 30px;
+            
+            /* 和padding一样顺时针 */
+            margin: 50px 60px;
+
+            /* 设置盒子尺寸自动内减 */
+            box-sizing: border-box;
+
+            /* 版心居中，左右自适应auto */
+            margin: 20px auto;
+
+            /* 外边距塌陷现象 */
+            overflow: hidden;
+        }
+
+        /* 清除标签默认属性 */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="father" class="c1">
+        <p id="son" class="c2">
+            这行文本是蓝色的。
+        </p>
+    </div>
+
+    <div class="text">内容电脑</div>
+</body>
+
+</html>

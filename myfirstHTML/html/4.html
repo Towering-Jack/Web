@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forth</title>
+    <style>
+        /* 后代选择器 */
+        div p {
+            font: 24px/1.5 微软雅黑;
+            color: aqua;
+        }
+
+        /* 子代选择器 */
+        div > span {
+            color: aquamarine;
+        }
+
+        /* 交集选择器，标签选择器放最前，紧挨着 */
+        p.one {
+            color: blueviolet;
+        }
+
+        /* 并集选择器用逗号分隔 */
+
+        /* hover伪类选择器，设置鼠标悬停时的样式 */
+        p:hover {
+            color: red;
+            text-decoration: underline;
+        }
+
+        .bg {
+            width: 600px;
+            height: 400px;
+
+            /* background连写 */
+            background: antiquewhite url(../images/1.jpg) no-repeat 300px 100px;
+
+            background-color: pink;
+            background-image: url(../images/1.jpg);
+            background-repeat: repeat-y;
+            background-position: 200px 300px;
+        }
+
+        .inline {
+            display: inline;
+        }
+    </style>
+</head>
+
+<body>
+    <p>这是一个p标签</p>
+
+    <div class="bg">
+        <p class="one">这个是div的儿子p1标签</p>
+        <span>这个是div的儿子span标签</span>
+        <p>这个是div的儿子p2标签</p>
+    </div>
+
+    <div class="inline">div标签显示模式转换为行内</div>
+    <div class="inline">div标签显示模式转换为行内</div>
+    <div class="inline">div标签显示模式转换为行内</div>
+    
+</body>
+
+</html>

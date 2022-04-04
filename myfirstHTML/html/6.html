@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sixth</title>
+    <style>
+        /* 伪类选择器 */
+        li:first-child {
+            color: skyblue;
+        }
+
+        li:nth-child(-n+5) {
+            background-color: pink;
+        }
+
+        li:nth-last-child(2) {
+            color: palegreen;
+        }
+
+        a:nth-of-type(1) {
+            color: salmon;
+        }
+
+        .father {
+            background-color: pink;
+        }
+
+        /* 伪元素，必须设置content属性，默认为行内元素 */
+        .father::before {
+            content: "老鼠";
+            color: greenyellow;
+            font: 30px 宋体;
+        }
+
+        .father::after {
+            content: "大米";
+        }
+
+        /* 浮动 */
+        /* CSS书写顺序: 浏览器执行效率更高
+            1. 浮动 / display
+            2. 盒子模型: margin border padding 宽度高度背景色
+            3. 文字样式
+        */
+        .header {
+            width: 800px;
+            height: 100px;
+            background-color: #ffc0cb;
+            margin: 0 auto;
+        }
+
+        /* 不设置高度，需要清除浮动 */
+        .content {
+            width: 1000px;
+            background-color: green;
+            margin: 0 auto;
+
+            /* 清除浮动：溢出隐藏 */
+            overflow: hidden;
+        }
+
+        .left {
+            float: left;
+
+            width: 300px;
+            height: 460px;
+            background-color: #ffa500;
+        }
+
+        .right {
+            float: right;
+
+            width: 500px;
+            height: 460px;
+            background-color: #87ceeb;
+        }
+
+        /* 清除浮动：额外标签法 */
+        /* .clearfix {
+            clear: both;
+        } */
+
+        /* 清除浮动：单伪元素清除法 */
+        /* .clearfix2::after {
+            content: '';
+            display: block;
+            clear: both;
+        } */
+
+        /* 清除浮动：双伪元素清除法：解决外边距塌陷 */
+        .clearfix3::before,
+        .clearfix3::after {
+            content: '';
+            display: table;
+        }
+        .clearfix3::after {
+            clear: both;
+        }
+
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>这是第1个li标签</li>
+        <li>这是第2个li标签</li>
+        <li>这是第3个li标签
+            <a href="#">第1个a标签</a>
+            <a href="#">第2个a标签</a>
+        </li>
+        <li>这是第4个li标签</li>
+        <li>这是第5个li标签
+            <a href="#">第3个a标签</a>
+            <a href="#">第4个a标签</a>
+        </li>
+        <li>这是第6个li标签</li>
+        <li>这是第7个li标签</li>
+        <li>这是第8个li标签</li>
+    </ul>
+
+    <div class="father">
+        爱
+    </div>
+
+    <div class="top"></div>
+    <div class="header">头部</div>
+    <div class="content clearfix3">
+        <div class="left">left</div>
+        <div class="right">right</div>
+        <!-- <div class="clearfix"></div> -->
+    </div>
+</body>
+
+</html>

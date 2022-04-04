@@ -1,0 +1,665 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:CSS</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<h1 id="css-">CSS笔记</h1>
+<p>[TOC]</p>
+<hr>
+<h2 id="-">选择器</h2>
+<h3 id="-">标签选择器</h3>
+<p>结构： 标签名 { css属性名:属性值; }</p>
+<pre><code class="lang-css">p {
+    color: red;
+    background-color: whitesmoke;
+    ...
+}
+</code></pre>
+<h3 id="-">类选择器</h3>
+<p>结构： .类名 { css属性名：属性值; }</p>
+<pre><code class="lang-css">.box {
+    color: red;
+    background-color: whitesmoke;
+    ...
+}
+</code></pre>
+<h3 id="id-">id选择器</h3>
+<p>结构： #id属性值 { css属性名：属性值; }</p>
+<pre><code class="lang-css">#gender {
+    color: red;
+    background-color: whitesmoke;
+    ...
+}
+</code></pre>
+<blockquote>
+<p>class类名与id属性值的区别</p>
+<ul>
+<li>class类名相当于姓名，可以重复，一个标签可以同时有多个class类名</li>
+<li>id属性值相当于身份证号码，不可重复，一个标签只能有一个id属性值<ul>
+<li>id一般配合js使用，除非特殊情况，否则不要使用id设置样式</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="-">通配符选择器</h3>
+<p>结构： * { css属性名：属性值; }</p>
+<pre><code class="lang-css">* {
+    margin: 0;
+    padding: 0;
+
+    /* 内减模式 */
+    box-sizing: border-box;
+}
+</code></pre>
+<h3 id="-">选择器优先级</h3>
+<ul>
+<li>特性：不同选择器具有不同的优先级，优先级高的选择器样式会覆盖优先级低选择器样式</li>
+<li>优先级公式：<ul>
+<li>继承 &lt; 通配符选择器 &lt; 标签选择器 &lt; 类选择器 &lt; id选择器 &lt; 行内样式 &lt; !important</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>关于!important</strong></p>
+<pre><code class="lang-css">p{
+    color: red !important;
+}
+</code></pre>
+<ol>
+<li>!important写在属性值的后面，分号的前面</li>
+<li>!important不能提升继承的优先级，只要是继承优先级最低</li>
+</ol>
+</blockquote>
+<hr>
+<h2 id="-">复合选择器</h2>
+<h3 id="-">后代选择器</h3>
+<p>选择器语法： 选择器1 选择器2 { css }</p>
+<pre><code class="lang-css">div p {
+    font: 24px/1.5 微软雅黑;
+    color: aqua;
+    ...
+}
+</code></pre>
+<h3 id="-">子代选择器</h3>
+<p>选择器语法： 选择器1 &gt; 选择器2 { css }</p>
+<pre><code class="lang-css">div &gt; p {
+    font: 24px/1.5 微软雅黑;
+    color: aqua;
+    ...
+}
+</code></pre>
+<h3 id="-">并集选择器</h3>
+<p>作用：同时选择多组标签，设置相同的样式
+选择器语法： 选择器1 , 选择器2 { css }</p>
+<pre><code class="lang-css">div , p {
+    font: 24px/1.5 微软雅黑;
+    color: aqua;
+    ...
+}
+</code></pre>
+<h3 id="-">交集选择器</h3>
+<p>作用：选中页面中<strong>同时满足</strong>多个选择器的标签
+选择器语法： 选择器1选择器2 { css }</p>
+<pre><code class="lang-css">div.box {
+    font: 24px/1.5 微软雅黑;
+    color: aqua;
+    ...
+}
+</code></pre>
+<blockquote>
+<p>交集选择器中的选择器之间是==紧挨==着的，没有东西分隔
+交集选择器中如果有<strong>标签选择器</strong>，标签选择器必须写在最前面</p>
+</blockquote>
+<h3 id="-">伪类选择器</h3>
+<h4 id="hover-">hover伪类选择器</h4>
+<p>作用：选中鼠标悬停在元素上的状态，设置样式
+选择器语法：选择器:hover { css }</p>
+<pre><code class="lang-css">p:hover {
+    color: red;
+    text-decoration: underline;
+}
+</code></pre>
+<h4 id="-">结构伪类选择器</h4>
+<ul>
+<li>场景：常用于查找某父级选择器中的子元素</li>
+<li>作用：根据元素在HTML中的结构关系查找元素</li>
+</ul>
+<h5 id="nth-child-">nth-child系列</h5>
+<table>
+<thead>
+<tr>
+<th>选择器(n为自然数)</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E:first-child {}</td>
+<td>匹配父元素中第一个子元素，并且是E元素</td>
+</tr>
+<tr>
+<td>E:last-child {}</td>
+<td>匹配父元素中最后一个子元素，并且是E元素</td>
+</tr>
+<tr>
+<td>E:nth-child(n) {}</td>
+<td>匹配父元素中第n个子元素，并且是E元素</td>
+</tr>
+<tr>
+<td>E:nth-last-child(n) {}</td>
+<td>匹配父元素中倒数第n个子元素，并且是E元素</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-css">li:first-child {
+    color: skyblue;
+}
+
+li:nth-child(-n+5) {
+    color: skyblue;
+}
+
+li:nth-last-child(2) {
+    color: skyblue;
+}
+</code></pre>
+<h5 id="nth-of-type-">nth-of-type系列</h5>
+<table>
+<thead>
+<tr>
+<th>选择器(n为自然数)</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E:nth-of-type(n) {}</td>
+<td>只在父元素的同类型(E)子元素范围中，匹配第n个</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-css">a:nth-of-type(1) {
+    color: skyblue;
+}
+</code></pre>
+<blockquote>
+<p>区别：</p>
+<ul>
+<li>:nth-child → 直接在所有孩子中数个数</li>
+<li>:nth-of-type → 先通过该<strong>类型</strong>找到符合的一堆子元素，然后在这一堆子元素中数个数</li>
+</ul>
+</blockquote>
+<h3 id="-">伪元素选择器</h3>
+<p>一般页面中的非主体内容可以使用伪元素，由<strong>CSS</strong>模拟出的标签效果</p>
+<pre><code class="lang-css">E::before {
+    content: &quot;老鼠&quot;;
+}
+
+E::after {
+    content: &quot;大米&quot;;
+}
+</code></pre>
+<ul>
+<li>必须设置content属性才能生效</li>
+<li>伪元素默认是行内元素</li>
+</ul>
+<h3 id="-">选择器权重计算</h3>
+<p>如果是复合选择器，此时需要通过权重叠加计算方法，判断最终哪个选择器优先级最高会生效</p>
+<ol>
+<li>先判断选择器是否能直接选中标签，如果不能直接选中 → 是继承，优先级最低 → 直接pass</li>
+<li>通过<strong>权重计算公式</strong>，判断谁权重最高</li>
+</ol>
+<pre><code class="lang-css">/* (行内, id, 类, 标签) */
+
+/* (0, 2, 0, 0) */
+#father #son {
+    color: blue;
+}
+
+/* (0, 1, 1, 1) */
+#father p.c2 {
+    color: black;
+}
+
+/* (0, 0, 2, 2) */
+div.c1 p.c2 {
+    color: red;
+}
+
+/* 继承, 最低 */
+#father {
+    color: green !important;
+}
+
+/* 继承, 最低 */
+div#father.c1 {
+    color: yellow;
+}
+</code></pre>
+<pre><code class="lang-html">&lt;div id=&quot;father&quot; class=&quot;c1&quot;&gt;
+    &lt;p id=&quot;son&quot; class=&quot;c2&quot;&gt;
+        这行文本是蓝色的。
+    &lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<hr>
+<h2 id="-">样式</h2>
+<h3 id="-">字体样式</h3>
+<pre><code class="lang-css">.font {
+    /* 格式：font: style weight size/line-height family */
+    /* 先写复合属性，style和weight可以省略 */
+    font: italic 700 32px/2 宋体;
+
+    /* 无衬线字体sans-serif */
+    font-family: 微软雅黑, 宋体, sans-serif;
+
+    /* 首行缩进两个字符 */
+    text-indent: 2em;
+
+    /* 字符间距 */
+    letter-spacing: 2px;
+
+    /* 文字对齐方式: left center right justify */
+    text-align: center;
+
+    /* underline下划线, line-througt删除线, overline上划线, none无装饰线 */
+    text-decoration: underline;
+}
+</code></pre>
+<blockquote>
+<p>颜色取值：关键字、 rgb表示法、 rgba表示法、十六进制...</p>
+</blockquote>
+<ul>
+<li>font-weight属性：<ul>
+<li>100 ~ 900的整百数<ul>
+<li>400: normal</li>
+<li>700: bold</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>font-family属性：<ul>
+<li>无衬线字体（sans-serif）</li>
+<li>衬线字体（serif）</li>
+<li>等宽字体（monospace）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>无衬线字体（sans-serif）<ol>
+<li>特点：文字笔画粗细均匀，并且首尾无装饰</li>
+<li>场景：网页中大多采用无衬线字体</li>
+<li>常见该系列字体：黑体、 Arial</li>
+</ol>
+</li>
+<li>衬线字体（serif）<ol>
+<li>特点：文字笔画粗细不均，并且首尾有笔锋装饰</li>
+<li>场景：报刊书籍中应用广泛</li>
+<li>常见该系列字体：宋体、 Times New Roman</li>
+</ol>
+</li>
+<li>等宽字体（monospace）<ol>
+<li>特点：每个字母或文字的宽度相等</li>
+<li>场景：一般用于程序代码编写，有利于代码的阅读和编写</li>
+<li>常见该系列字体： Consolas、 fira code</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<h3 id="-">背景样式</h3>
+<pre><code class="lang-css">.bg {
+    width: 600px;
+    height: 400px;
+
+    /* background连写： color image repeat position */
+    background: antiquewhite url(&#39;图片路径&#39;) no-repeat 300px 100px;
+
+    background-color: pink;
+    background-image: url(&#39;图片路径&#39;);
+    background-repeat: repeat-y;
+    background-position: center center;
+}
+</code></pre>
+<ul>
+<li>background-repeat属性：背景平铺设置<ul>
+<li><strong>repeat</strong> ：默认值，水平和垂直方向都平铺</li>
+<li><strong>no-repeat</strong> ：不平铺</li>
+<li><strong>repeat-x</strong> ：沿着水平方向(x轴)平铺</li>
+<li><strong>repeat-y</strong> ：沿着垂直方向(y轴)平铺</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">元素显示模式</h2>
+<h3 id="-">块级元素</h3>
+<p><code>display: block</code></p>
+<ul>
+<li>显示特点：<ol>
+<li>独占一行（一行只能显示一个）</li>
+<li>宽度默认是父元素的宽度，高度默认由内容撑开</li>
+<li>可以设置宽高</li>
+</ol>
+</li>
+<li>代表标签：<ul>
+<li>div、 p、 h系列、 ul、 li、 dl、 dt、 dd、 form、 header、 nav、 footer...</li>
+</ul>
+</li>
+</ul>
+<h3 id="-">行内元素</h3>
+<p><code>display: inline</code></p>
+<ul>
+<li>显示特点：<ol>
+<li>一行可以显示多个</li>
+<li>宽度和高度默认由内容撑开</li>
+<li>不可以设置宽高</li>
+</ol>
+</li>
+<li>代表标签：<ul>
+<li>a、 span、 b、 u、 i、 s、 strong、 ins、 em、 del...</li>
+</ul>
+</li>
+</ul>
+<h3 id="-">行内块元素</h3>
+<p><code>display: inline-block</code></p>
+<ul>
+<li>显示特点：<ol>
+<li>一行可以显示多个</li>
+<li>可以设置宽高</li>
+</ol>
+</li>
+<li>代表标签：<ul>
+<li>input、 textarea、 button、 select...</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">盒子模型</h2>
+<p>CSS 中规定每个盒子分别由： <strong>内容区域（content）</strong>、<strong>内边距区域（padding）</strong>、<strong>边框区域（border）</strong>、<strong>外边距区域（margin）</strong> 构成</p>
+<h3 id="-content-">内容区域（content）</h3>
+<pre><code class="lang-css">width: 800px;
+height: 400px;
+background-color: pink;
+</code></pre>
+<h3 id="-border-">边框区域（border）</h3>
+<pre><code class="lang-css">/* 格式：border: width style color */
+border: 10px solid red;
+
+/* 单方向设置：top bottom left right */
+border-bottom: 5px dashed blue;
+</code></pre>
+<ul>
+<li>border-style属性：<ul>
+<li><strong>solid</strong> ：实线</li>
+<li><strong>dashed</strong> ：虚线</li>
+<li><strong>dotted</strong> ：点线</li>
+</ul>
+</li>
+</ul>
+<h3 id="-padding-">内边距区域（padding）</h3>
+<pre><code class="lang-css">padding: 10px 15px 20px 25px;
+padding: 10px 15px 20px;
+padding: 10px 15px;
+padding: 10px;
+</code></pre>
+<ul>
+<li>4个值：上 / 右 / 下 / 左（顺时针）</li>
+<li>3个值：上 / 左右 / 下</li>
+<li>2个值：上下 / 左右</li>
+<li>1个值：上下左右</li>
+</ul>
+<h3 id="-margin-">外边距区域（margin）</h3>
+<pre><code class="lang-css">/* 版心居中，左右自适应用auto */
+margin: 20px auto;
+</code></pre>
+<h3 id="-">补充</h3>
+<h4 id="-">清除默认内外边距</h4>
+<blockquote>
+<ul>
+<li>浏览器会默认给部分标签设置默认的margin和padding，但一般在项目开始前需要先清除这些标签默认的margin和padding，后续自己设置</li>
+<li>可以使用通配符选择器进行清除</li>
+</ul>
+</blockquote>
+<h4 id="-">外边距折叠现象</h4>
+<ul>
+<li>合并现象<ul>
+<li>场景：<strong>垂直布局</strong>的<strong>块级元素</strong>，上下的 margin 会合并，最终两者距离为两者 margin 的最大值</li>
+<li>解决办法：只给其中一个盒子设置 margin 即可</li>
+</ul>
+</li>
+<li>塌陷现象<ul>
+<li>场景：<strong>互相嵌套</strong>的<strong>块级元素</strong>，子元素的 ==margin-top== 会作用在父元素上，导致父元素一起往下移动</li>
+<li>解决办法：<ol>
+<li>给父元素设置 border-top 或者 padding-top （分隔父子元素的margin-top）</li>
+<li>给父元素设置 <code>overflow： hidden</code></li>
+<li>转换成行内块元素</li>
+<li>设置浮动</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-">浮动</h2>
+<ul>
+<li>浮动的框可以向左或向右移动，直到它的外边缘碰到包含框或另一个浮动框的边框为止</li>
+<li>由于浮动框不在文档的普通流中，所以文档的普通流中的块框表现得就像浮动框不存在一样</li>
+</ul>
+<pre><code class="lang-css">.left {
+    float: left;
+
+    width: 300px;
+    height: 300px;
+}
+
+.right {
+    float: right;
+
+    width: 300px;
+    height: 300px;
+}
+</code></pre>
+<h3 id="-">清除浮动</h3>
+<ul>
+<li>如果子元素浮动了，此时子元素不能撑开标准流的块级父元素</li>
+<li>子元素浮动后脱标，不占位置</li>
+<li>清除浮动的方法：<ol>
+<li>直接设置父元素高度</li>
+<li>额外标签法<ol>
+<li>在父元素内容的最后添加一个块级元素</li>
+<li>给添加的块级元素设置 clear:both</li>
+</ol>
+</li>
+<li>单伪元素清除法<ul>
+<li>用伪元素替代了额外标签</li>
+</ul>
+</li>
+<li>==双伪元素清除法==</li>
+<li>给父元素设置 <code>overflow : hidden</code></li>
+</ol>
+</li>
+</ul>
+<pre><code class="lang-css">/* 双伪元素清除法：解决外边距塌陷 */
+.clearfix3::before,
+.clearfix3::after {
+    content: &#39;&#39;;
+    display: table;
+}
+.clearfix3::after {
+    clear: both;
+}
+</code></pre>
+<hr>
+<h2 id="-">定位</h2>
+<p>定位之后的元素层级最高，可以层叠在其他盒子上面</p>
+<ul>
+<li>position设置定位的方式：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>定位方式</th>
+<th>属性值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>静态定位</td>
+<td>static</td>
+</tr>
+<tr>
+<td>相对定位</td>
+<td>relative</td>
+</tr>
+<tr>
+<td>绝对定位</td>
+<td>absolute</td>
+</tr>
+<tr>
+<td>固定定位</td>
+<td>fixed</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>设置偏移值：水平+垂直就近取一个即可</li>
+</ul>
+<h3 id="-">静态定位</h3>
+<ul>
+<li>静态定位是默认值，就是之前认识的标准流。</li>
+<li>不能通过方位属性进行移动</li>
+</ul>
+<h3 id="-">相对定位</h3>
+<ul>
+<li>需要配合方位属性实现移动</li>
+<li>相对于自己原来位置进行移动</li>
+<li>在页面中占位置，没有脱标</li>
+</ul>
+<pre><code class="lang-css">position: relative;
+left: 100px;
+top: 100px;
+</code></pre>
+<h3 id="-">绝对定位</h3>
+<ul>
+<li>需要配合方位属性实现移动</li>
+<li>相对于最近的<strong>非静态定位</strong>的<strong>祖先元素</strong>进行定位移动</li>
+<li>祖先元素中没有定位，则默认相对于浏览器进行移动</li>
+<li>在页面中不占位置，已经脱标</li>
+</ul>
+<pre><code class="lang-css">position: absolute;
+left: 100px;
+top: 100px;
+</code></pre>
+<blockquote>
+<p>配合绝对定位（子绝父相）
+让子元素相对于父元素进行自由移动</p>
+</blockquote>
+<pre><code class="lang-css">/* 移动到父级盒子中间 */
+left: 50%;
+top: 50%;
+
+transform: translate(-50%, -50%);
+</code></pre>
+<h3 id="-">固定定位</h3>
+<ul>
+<li>需要配合方位属性实现移动</li>
+<li>相对于浏览器进行定位移动</li>
+<li>在页面中不占位置，已经脱标</li>
+</ul>
+<pre><code class="lang-css">position: fixed;
+left: 100px;
+top: 100px;
+</code></pre>
+<h3 id="-">层级关系</h3>
+<ul>
+<li>标准流 &lt; 浮动 &lt; 定位</li>
+<li>相对、绝对、固定默认层级相同，此时HTML中写在下面的元素层级更高，会覆盖上面的元素</li>
+<li>通过<strong>z-index</strong>属性修改定位元素的层级<ul>
+<li>取整数，默认是0。取值越大，显示顺序越靠上</li>
+</ul>
+</li>
+</ul>
+
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>

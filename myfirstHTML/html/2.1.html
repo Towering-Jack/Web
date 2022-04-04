@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second01</title>
+</head>
+
+<body>
+    <!-- 无序列表，type="circle"空心圆点，"square"实心方块 -->
+    <ul type="circle">
+        <li>榴莲</li>
+        <li>香蕉</li>
+    </ul>
+
+    <!-- 有序列表,type="1 A a I i"分别表示阿拉伯数字、英文字母、罗马数字 -->
+    <ol type="I" start="3">
+        <li>张三：100</li>
+        <li>李四：90</li>
+        <li value="10">王五：80</li>
+        <li>赵六：70</li>
+    </ol>
+    <!-- 有序列表的嵌套 -->
+    <ol>
+        <li><b>报名</b></li>
+        <ol type="A">
+            <li>报名时间：XXXXX</li>
+            <li>报名地点：XXXXX</li>
+            <li>报名费用：XXXXX</li>
+            <li>注意事项：</li>
+            <ol type="a">
+                <li>XXX</li>
+                <li>XXX</li>
+                <li>XXX</li>
+            </ol>
+        </ol>
+        <li><strong>培训</strong></li>
+        <li><strong>测试</strong></li>
+    </ol>
+
+    <!-- 自定义列表 -->
+    <dl>
+        <dt>这是自定义列表的标题这是自定义列表的标题</dt>
+        <dd>内容1</dd> <!-- 会根据dt自动缩进 -->
+        <dd>内容2</dd>
+    </dl>
+
+
+    <!-- 表格 -->
+    <!-- 下面的属性一般用CSS设计 -->
+    <table border="1" align="center" width="800" height="200">
+        <caption><strong>学生成绩单</strong></caption>
+
+        <thead>
+            <tr>
+                <!-- 用th代替td -->
+                <th>姓名</th>
+                <th>成绩</th>
+                <th>评语</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr align="center">
+                <td>张三</td>
+                <td rowspan="2">100</td> <!-- 合并单元格 -->
+                <td>满分</td>
+            </tr>
+            <tr>
+                <td>李四</td>
+                <td>可惜了</td>
+            </tr>
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td>总结</td>
+                <td colspan="2">很棒</td>
+            </tr>
+        </tfoot>
+    </table>
+</body>
+
+</html>
