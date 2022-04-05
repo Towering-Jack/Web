@@ -43,7 +43,7 @@
         arr.shift() // 在数组开头删除元素
         arr.splice(0, 2) // 从指定位置删除指定个元素
 
-        function getName() {
+        function sayHello() {
             document.write("Hello")
         }
 
@@ -52,11 +52,11 @@
         // 匿名函数
         let fun = function () {
             document.write(987)
-        };
-        fun();
+        }
+        fun()
         (function () {
             document.write(456)
-        })();
+        })()
 
         // 对象
         let person = {
@@ -64,7 +64,7 @@
             age: 18,
 
             sayHi: function () {
-                document.write("hi~")
+                document.write("hi")
             }
         }
 

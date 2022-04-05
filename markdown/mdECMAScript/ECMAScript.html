@@ -1,0 +1,316 @@
+<html>
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>ECMAScript笔记</title>
+	<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet"
+		type="text/css" />
+	<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet"
+		type="text/css" />
+	<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css" />
+	<style>
+		pre {
+			counter-reset: line-numbering;
+			border: solid 1px #d9d9d9;
+			border-radius: 0;
+			background: #fff;
+			padding: 0;
+			line-height: 23px;
+			margin-bottom: 30px;
+			white-space: pre;
+			overflow-x: auto;
+			word-break: inherit;
+			word-wrap: inherit;
+		}
+
+		pre a::before {
+			content: counter(line-numbering);
+			counter-increment: line-numbering;
+			padding-right: 1em;
+			/* space after numbers */
+			width: 25px;
+			text-align: right;
+			opacity: 0.7;
+			display: inline-block;
+			color: #aaa;
+			background: #eee;
+			margin-right: 16px;
+			padding: 2px 10px;
+			font-size: 13px;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		pre a:first-of-type::before {
+			padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+			padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+			padding: 10px;
+		}
+
+		.highlight {
+			background-color: #ffffcc
+		}
+
+		/* RIGHT */
+	</style>
+</head>
+
+<body>
+	<div>
+		<div style='width:25%;'>
+			<ul id="tree" class="ztree" style='width:100%'>
+
+			</ul>
+		</div>
+		<div id='readme' style='width:70%;margin-left:20%;'>
+			<article class='markdown-body'>
+				<h1 id="ecmascript-">ECMAScript笔记</h1>
+				<p>ECMAScript规定了js基础语法核心知识</p>
+				<p>[TOC]</p>
+				<hr>
+				<h2 id="-">输入输出语法</h2>
+				<p>弹出输入框
+					<code>prompt(&#39;请输入内容：&#39;)</code></p>
+				<p>弹出警示框
+					<code>alert(&#39;这是一个警示框&#39;)</code></p>
+				<p>弹出确认框
+					<code>confirm(&quot;这是一个确认框&quot;)</code></p>
+				<p>页面输出
+					<code>document.write(&quot;Hello World!&quot;)</code></p>
+				<p>控制台console输出
+					<code>console.log()</code></p>
+				<hr>
+				<h2 id="-">变量</h2>
+				<h3 id="-">声明变量</h3>
+				<pre><code class="lang-js">let num = 1
+let arr = [1, 2, 3]
+</code></pre>
+				<p><strong>let</strong> 和 <strong>var</strong> 的区别</p>
+				<blockquote>
+					<p>ES6 新增了let命令，用来声明变量。它的用法类似于var，但是所声明的变量，只在let命令所在的代码块内有效。</p>
+					<pre><code class="lang-js">{
+  let a = 10;
+  var b = 1;
+}
+
+a // ReferenceError: a is not defined.
+b // 1
+</code></pre>
+					<p>上面代码在代码块之中，分别用let和var声明了两个变量。
+						然后在代码块之外调用这两个变量，结果let声明的变量报错，var声明的变量返回了正确的值。
+						这表明，let声明的变量只在它所在的代码块有效。</p>
+				</blockquote>
+				<h3 id="-">使用变量</h3>
+				<p><code>document.write(&quot;这个数是${num}。&quot;)</code></p>
+				<h3 id="-">数据类型</h3>
+				<blockquote>
+					<p>JS 是==弱数据类型==，变量到底属于哪种类型，只有赋值之后才能确认</p>
+				</blockquote>
+				<h4 id="-">基本数据类型</h4>
+				<ul>
+					<li><strong>number</strong> 数字型</li>
+					<li><strong>string</strong> 字符串型</li>
+					<li><strong>boolean</strong> 布尔型</li>
+					<li><strong>undefined</strong> 未定义型</li>
+					<li><strong>null</strong> 空类型</li>
+				</ul>
+				<blockquote>
+					<ul>
+						<li>null 和 undefined 区别：<ol>
+								<li><strong>undefined</strong> 表示没有赋值</li>
+								<li><strong>null</strong> 表示赋值了，但是内容为空 (把 null 作为尚未创建的对象)</li>
+							</ol>
+						</li>
+					</ul>
+				</blockquote>
+				<h4 id="-">引用数据类型</h4>
+				<ul>
+					<li><strong>object</strong> 对象</li>
+					<li><strong>function</strong> 函数</li>
+					<li><strong>array</strong> 数组</li>
+				</ul>
+				<h3 id="-">类型转换</h3>
+				<h4 id="-">隐式转换</h4>
+				<ul>
+					<li>+号两边只要有一个是字符串，都会把另外一个转成字符串</li>
+					<li>除了+以外的算术运算符，比如 - * / 等都会把数据转成数字类型</li>
+				</ul>
+				<pre><code class="lang-js">console.log(&#39;pink&#39; + 18) // pink18
+console.log(10 + &#39;10&#39;) // 1010
+
+console.log(10 - &#39;10&#39;) // 0
+
+// 小技巧
+let num = &#39;10&#39;
+console.log(+num)
+console.log(10 + +&#39;10&#39;) // 20
+</code></pre>
+				<h4 id="-">显式转换</h4>
+				<h5 id="-">转换为数字</h5>
+				<p><code>Number(数据)</code></p>
+				<ul>
+					<li>如果字符串内容里有非数字，转换失败时结果为 <strong>NaN</strong>（Not a Number）即不是一个数字</li>
+					<li>NaN也是number类型的数据，代表非数字</li>
+				</ul>
+				<p>只保留整数： <code>parseInt(数据)</code></p>
+				<p>可以保留小数： <code>parseFloat(数据)</code></p>
+				<h5 id="-">转换为字符型</h5>
+				<pre><code class="lang-js">String(数据)
+变量.toString(进制)
+</code></pre>
+				<blockquote>
+					<p>.toString()可以将所有的的数据都转换为字符串，但是要排除 null 和 undefined
+						String()可以将 null 和 undefined 转换为字符串，但是没法转进制字符串</p>
+				</blockquote>
+				<hr>
+				<h2 id="-">数组</h2>
+				<h3 id="-">添加元素</h3>
+				<p>数组.push() 方法将一个或多个元素添加到数组的==末尾==，并返回该数组的新长度
+					<code>arr.push(元素1, 元素2, ...)</code></p>
+				<p>数组.unshift() 方法将一个或多个元素添加到数组的==开头==，并返回该数组的新长度
+					<code>arr.unshift(元素1, 元素2, ...)</code></p>
+				<h3 id="-">删除元素</h3>
+				<p>数组.pop() 方法从数组中删除==最后一个==元素，并返回该元素的值
+					<code>arr.pop()</code></p>
+				<p>数组.shift() 方法从数组中删除==第一个==元素，并返回该元素的值
+					<code>arr.shift()</code></p>
+				<p>数组.splice() 方法 删除指定元素
+					<code>arr.splice(start, deleteCount)</code></p>
+				<ul>
+					<li>start ：指定修改的开始位置（从0计数）</li>
+					<li>deleteCount ：表示要移除的数组元素的个数（可选，默认删除到最后）</li>
+				</ul>
+				<hr>
+				<h2 id="-">函数</h2>
+				<pre><code class="lang-js">function sayHello() {
+    document.write(&quot;Hello&quot;)
+}
+</code></pre>
+				<ul>
+					<li>形参如果不被赋值，就是 undefined</li>
+					<li>函数可以没有 return ，这种情况函数默认返回值为 undefined</li>
+				</ul>
+				<blockquote>
+					<p>如果函数内部或者块级作用域内部，变量没有声明就直接赋值，会当成全局变量看</p>
+				</blockquote>
+				<h3 id="-">匿名函数</h3>
+				<p>将匿名函数赋值给一个变量，并且通过变量名称进行调用，称为函数表达式</p>
+				<pre><code class="lang-js">let fun = function () {
+    //function body
+}
+fun()
+</code></pre>
+				<h4 id="-">立即执行函数</h4>
+				<p>声明一个函数，并马上调用这个匿名函数</p>
+				<pre><code class="lang-js">//第一种：用括号把整个函数定义和调用包裹起来
+( function () {
+    //function body
+} () )
+
+//第二种：用括号把函数定义包裹起来，后面再加括号
+( function () {
+    //function body
+} ) ()
+</code></pre>
+				<ul>
+					<li>作用：不必为函数命名，<strong>避免污染全局变量</strong></li>
+					<li>注意：多个立即执行函数要用 <strong>;</strong> 隔开</li>
+				</ul>
+				<hr>
+				<h2 id="-">对象</h2>
+				<p>声明对象：</p>
+				<pre><code class="lang-js">let person = {
+    name: &quot;jack&quot;,
+    age: 18,
+
+    sayHi: function () {
+        document.write(&quot;hi&quot;)
+    }
+}
+</code></pre>
+				<p>属性访问：获得对象里面的属性值</p>
+				<pre><code class="lang-js">console.log(person.name)
+console.log(person[&#39;name&#39;])
+person.sayHi()
+</code></pre>
+				<h3 id="-">操作对象</h3>
+				<h4 id="-">增加属性和方法</h4>
+				<pre><code class="lang-js">person.gender = &#39;男&#39;
+person[&#39;hobby&#39;] = &#39;篮球&#39;
+
+person.move = function() {
+    //function body
+}
+</code></pre>
+				<ul>
+					<li>无论是属性或是方法，同一个对象中出现名称一样的，后面的会覆盖前面的（改）</li>
+				</ul>
+				<h4 id="-">删除属性</h4>
+				<p><code>delete person.age</code></p>
+				<h3 id="-">遍历对象</h3>
+				<pre><code class="lang-js">for (let k in person) {
+    document.write(k) // 打印属性名
+    document.write(person[k]) // 打印属性值
+}
+</code></pre>
+				<ul>
+					<li>k 是获得对象的属性名， 对象名[k] 是获得该属性的属性值</li>
+				</ul>
+				<h3 id="-math">内置对象Math</h3>
+				<p>方法：</p>
+				<ul>
+					<li>random：生成0-1之间的随机数（包含0不包括1）<ul>
+							<li>生成0-10的随机数： <code>Math.floor(Math.random() * (10 + 1))</code></li>
+							<li>==生成N-M之间的随机数：== <code>Math.floor(Math.random() * (M - N + 1)) + N</code></li>
+						</ul>
+					</li>
+					<li>ceil：向上取整</li>
+					<li>floor：向下取整</li>
+					<li>max：找最大数</li>
+					<li>min：找最小数</li>
+					<li>pow：幂运算</li>
+					<li>abs：绝对值</li>
+				</ul>
+				<hr>
+				<h2 id="-">注意</h2>
+				<h3 id="-">比较运算符</h3>
+				<ul>
+					<li>===： 左右两边是否类型和值都相等</li>
+					<li>!\==： 左右两边是否不全等</li>
+				</ul>
+				<p>细节：</p>
+				<ul>
+					<li>NaN不等于任何值，包括它本身</li>
+					<li>尽量不要比较小数，因为小数有精度问题</li>
+				</ul>
+
+			</article>
+		</div>
+	</div>
+</body>
+
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript">
+	$(document).ready(function () {
+		var css_conf = eval(markdown_panel_style);
+		$('#readme').css(css_conf)
+
+		var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+	});
+</SCRIPT>

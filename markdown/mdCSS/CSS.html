@@ -401,6 +401,15 @@ div#father.c1 {
                         </ul>
                     </li>
                 </ul>
+                <h4 id="-">背景渐变</h4>
+                <pre><code class="lang-css">background-image: linear-gradient(
+    transparent,
+    rgba(0, 0, 0, .5)
+);
+</code></pre>
+                <ul>
+                    <li><strong>transparent</strong> ：纯透明黑色 rgba(0, 0, 0, 0)</li>
+                </ul>
                 <hr>
                 <h2 id="-">元素显示模式</h2>
                 <h3 id="-">块级元素</h3>
@@ -628,12 +637,6 @@ top: 100px;
                     <p>配合绝对定位（子绝父相）
                         让子元素相对于父元素进行自由移动</p>
                 </blockquote>
-                <pre><code class="lang-css">/* 移动到父级盒子中间 */
-left: 50%;
-top: 50%;
-
-transform: translate(-50%, -50%);
-</code></pre>
                 <h3 id="-">固定定位</h3>
                 <ul>
                     <li>需要配合方位属性实现移动</li>
@@ -653,6 +656,307 @@ top: 100px;
                         </ul>
                     </li>
                 </ul>
+                <hr>
+                <h2 id="-">平面转换</h2>
+                <p>改变盒子在平面内的形态（位移、旋转、缩放）</p>
+                <h3 id="-">位移</h3>
+                <p><code>transform: translate(水平移动距离, 垂直移动距离);</code></p>
+                <ul>
+                    <li>translate()如果只给出一个值, 表示x轴方向移动距离</li>
+                    <li>单独设置某个方向的移动距离：<strong>translateX()</strong> 或 <strong>translateY()</strong></li>
+                    <li>取值：可用 <strong>像素单位</strong> 或者 <strong>百分比</strong>(基于盒子自身尺寸)</li>
+                </ul>
+                <p><strong>注意</strong> ：X轴正向为右，Y轴正向为==下==</p>
+                <h4 id="-">移动到父级盒子中间</h4>
+                <pre><code class="lang-css">left: 50%;
+top: 50%;
+
+transform: translate(-50%, -50%);
+</code></pre>
+                <h4 id="-">双开门效果</h4>
+                <pre><code class="lang-css">.box {
+    width: 1000px;
+    height: 600px;
+    margin: 0 auto;
+    background: url(&#39;背景图片路径&#39;);
+
+    /* 溢出隐藏 */
+    overflow: hidden;
+}
+
+.box::before,
+.box::after {
+    float: left;
+    content: &#39;&#39;;
+    width: 50%;
+    height: 600px;
+    background-image: url(&#39;显示图片路径&#39;);
+
+    /* 持续时间 */
+    transition: all 0.5s;
+}
+
+/* 右半部分显示图片 */
+.box::after {
+    /* right也可换成 100% */
+    background-position: right 0;
+}
+
+/* 鼠标移入的时候的位置改变的效果 */
+.box:hover::before {
+    transform: translate(-100%);
+}
+
+.box:hover::after {
+    transform: translateX(100%);
+}
+</code></pre>
+                <h3 id="-">旋转</h3>
+                <p><code>transform: rotate(角度);</code></p>
+                <ul>
+                    <li>角度单位是deg</li>
+                    <li>取值为正，则顺时针旋转，反之为逆时针旋转</li>
+                </ul>
+                <p><code>transform-origin: 原点水平位置 原点垂直位置;</code></p>
+                <ul>
+                    <li>transform-origin属性：改变转换原点</li>
+                    <li>默认圆点是盒子中心点</li>
+                    <li>取值：<ul>
+                            <li>方位名词（left、top、right、bottom、center）</li>
+                            <li>像素单位数值</li>
+                            <li>百分比（参照盒子自身尺寸计算）</li>
+                        </ul>
+                    </li>
+                </ul>
+                <h3 id="-">缩放</h3>
+                <p><code>transform: scale(x轴缩放倍数, y轴缩放倍数);</code></p>
+                <ul>
+                    <li>一般情况下，只为scale设置一个值，表示x轴和y轴等比例缩放</li>
+                    <li>scale值大于1表示放大，scale值小于1表示缩小</li>
+                </ul>
+                <h3 id="transform-">transform复合属性</h3>
+                <pre><code class="lang-css">transform:  translate(&lt;translation-value&gt;[,&lt;translation-value&gt;]?)
+            rotate(&lt;angle&gt;)
+            scale(&lt;number&gt;[,&lt;number&gt;]?)
+            skew(&lt;angle&gt;[,&lt;angle&gt;]?);
+</code></pre>
+                <ul>
+                    <li><strong>旋转</strong>会改变网页元素的坐标轴向</li>
+                    <li>先写旋转，则后面的转换效果的轴向<strong>以旋转后的轴向为准</strong>，会影响转换结果</li>
+                </ul>
+                <hr>
+                <h2 id="-">空间转换</h2>
+                <p><code>transform: translate3d(x, y, z);</code></p>
+                <ul>
+                    <li>z值为正，则变近，反之变远</li>
+                </ul>
+                <p>使用 <strong>perspective</strong> 属性实现透视效果(近大远小、近实远虚的视觉效果)</p>
+                <p><code>perspective: 1000px;</code></p>
+                <ul>
+                    <li>该属性添加给==父级==</li>
+                    <li>取值：数值一般在 800px – 1200px</li>
+                </ul>
+                <h3 id="-">空间旋转</h3>
+                <p><code>transform: rotate3d(x, y, z, 角度度数)</code> （一般不用）
+                    <code>transform: rotateX(角度);</code> （常用 X 和 Y ）</p>
+                <ul>
+                    <li>用来设置自定义旋转轴的位置及旋转的角度</li>
+                    <li>x，y，z 取值为 0-1 之间的数字</li>
+                </ul>
+                <p>判断旋转方向: <strong>左手</strong>握住旋转轴，拇指指向正值方向，手指弯曲方向为旋转正值方向
+                    <code>transform: rotateZ(角度);</code> = <code>transform: rotate(角度);</code></p>
+                <p><img src="img/左手法则判断旋转方向.png" alt="左手法则判断旋转方向"></p>
+                <h3 id="-">空间缩放</h3>
+                <p><code>transform: scale3d(x, y, z);</code></p>
+                <ul>
+                    <li>也可以用 <code>transform: scaleX(倍数);</code></li>
+                </ul>
+                <h3 id="-">立体呈现</h3>
+                <p><code>transform-style: preserve-3d;</code></p>
+                <ul>
+                    <li>该属性添加给==父级==</li>
+                    <li>按需求设置子盒子的位置（位移或旋转）</li>
+                    <li>子级使用<strong>子绝父相</strong></li>
+                </ul>
+                <p><strong>3D导航实现：</strong></p>
+                <pre><code class="lang-css">ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.navs {
+    width: 300px;
+    height: 40px;
+    margin: 50px auto;
+}
+
+.navs li {
+    position: relative;
+    float: left;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    transition: all .5s;
+    transform-style: preserve-3d;
+
+    /* 旋转: 看到立体盒子 */
+    /* transform: rotateX(-20deg) rotateY(30deg); */
+}
+
+.navs li a {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+}
+
+.navs li a:first-child {
+    background-color: green;
+    transform: translateZ(20px);
+}
+
+.navs li a:last-child {
+    background-color: orange;
+    /* 躺平x轴旋转  立方体的顶部,位移z(确保看到这个盒子) */
+    transform: rotateX(90deg) translateZ(20px);
+}
+
+/* li:hover 立方体旋转 */
+.navs li:hover {
+    transform: rotateX(-90deg);
+}
+</code></pre>
+                <pre><code class="lang-html">&lt;div class=&quot;navs&quot;&gt;
+    &lt;ul&gt;
+        &lt;li&gt;
+            &lt;a href=&quot;#&quot;&gt;首页&lt;/a&gt;
+            &lt;a href=&quot;#&quot;&gt;Index&lt;/a&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre>
+                <p><img src="img/3D导航.png" alt="3D导航图片"></p>
+                <hr>
+                <h2 id="-">动画</h2>
+                <pre><code class="lang-css">/* 定义动画： */
+@keyframes 动画名称 {
+    from {}
+    to {}
+}
+/* 或者 */
+@keyframes 动画名称 {
+    /* 百分比指的是动画总时长的占比 */
+    0% {}
+    50% {}
+    100% {}
+}
+
+/* 使用动画： */
+animation: 动画名称 动画时长 速度曲线 延迟时间 重复次数 动画方向 执行完毕时状态;
+</code></pre>
+                <ul>
+                    <li>动画名称和动画时长必须赋值</li>
+                    <li>取值不分先后顺序</li>
+                    <li>如果有2个时间值，第一个时间表示动画时长，第二个时间表示延迟时间</li>
+                </ul>
+                <p>一些常用属性：</p>
+                <ul>
+                    <li>重复次数(无限循环)： <strong>infinite</strong></li>
+                    <li>动画方向(轮流反向播放动画)： <strong>alternate</strong></li>
+                    <li>执行完毕时状态：（与上面两个互斥）<ol>
+                            <li><strong>backwards</strong> ：默认值, 动画停留在最初的状态</li>
+                            <li><strong>forwards</strong> ：动画停留在结束状态</li>
+                        </ol>
+                    </li>
+                    <li>animation-play-state属性 ：<strong>paused</strong> 暂停动画，配合:hover使用</li>
+                </ul>
+                <h3 id="-">速度曲线</h3>
+                <p><code>animation-timing-function: steps(数字);</code></p>
+                <ul>
+                    <li>取值：<ol>
+                            <li>steps(数字)：==逐帧动画==，将动画过程等分成N份，配合<strong>精灵图</strong>使用</li>
+                            <li><strong>linear</strong> ：动画从头到尾的速度是相同的</li>
+                            <li><strong>ease</strong> ：默认，动画以低速开始，然后加快，在结束前变慢</li>
+                        </ol>
+                    </li>
+                </ul>
+                <h3 id="-">走马灯效果</h3>
+                <pre><code class="lang-css">img {
+    width: 200px;
+}
+
+.box {
+    width: 600px;
+    height: 120px;
+    border: 5px solid #000;
+    margin: 100px auto;
+    overflow: hidden;
+}
+
+.box ul {
+    width: 2000px;
+    animation: move 10s infinite linear;
+}
+
+.box li {
+    float: left;
+}
+
+@keyframes move {
+    to {
+        transform: translateX(-1400px);
+    }
+}
+
+.box:hover ul {
+    animation-play-state: paused;
+}
+</code></pre>
+                <pre><code class="lang-html">&lt;div class=&quot;box&quot;&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;img src=&quot;图片1路径&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&quot;图片2路径&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&quot;图片3路径&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&quot;图片4路径&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&quot;图片5路径&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&quot;图片6路径&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&quot;图片7路径&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+
+        &lt;!-- 第567移动的时候,显示区域不能留白 --&gt;
+        &lt;li&gt;&lt;img src=&quot;图片1路径&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&quot;图片2路径&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&quot;图片3路径&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre>
+                <hr>
+                <h2 id="-">补充功能</h2>
+                <h3 id="iconfont-">iconfont字体图标</h3>
+                <p><a href="https://www.iconfont.cn/">iconfont素材下载</a></p>
+                <blockquote>
+                    <p>在iconfont图标库中，找到需求的图标
+                        先清空自己当前的购物车，避免污染，然后按F12进入console控制台
+                        在控制台中，复制以下代码</p>
+                    <pre><code class="lang-js">第一种方法
+var iconFontList = document.querySelectorAll(&#39;.icon-gouwuche1&#39;)
+Array.from(iconFontList).forEach(v =&gt; v.click())
+
+第二种方法
+var iconFontList = document.querySelectorAll(&#39;.icon-gouwuche1&#39;);
+
+for(var i = 0; i &lt; iconList.length; i++) {
+    iconFontList[i].click();
+}
+</code></pre>
+                    <p>稍微等几秒钟，图标购物车就有当前所有的图标了
+                        在购物车中，加入到图标项目，然后去我的项目中下载</p>
+                </blockquote>
 
             </article>
         </div>
