@@ -670,6 +670,216 @@ transform:  translate(<translation-value>[,<translation-value>]?)
 
 ---
 
+## 空间转换
+
+`transform: translate3d(x, y, z);`
+
+- z值为正，则变近，反之变远
+
+使用 **perspective** 属性实现透视效果(近大远小、近实远虚的视觉效果)
+
+`perspective: 1000px;`
+
+- 该属性添加给==父级==
+- 取值：数值一般在 800px – 1200px
+
+### 空间旋转
+
+`transform: rotate3d(x, y, z, 角度度数)` （一般不用）
+`transform: rotateX(角度);` （常用 X 和 Y ）
+
+- 用来设置自定义旋转轴的位置及旋转的角度
+- x，y，z 取值为 0-1 之间的数字
+
+判断旋转方向: **左手**握住旋转轴，拇指指向正值方向，手指弯曲方向为旋转正值方向
+`transform: rotateZ(角度);` = `transform: rotate(角度);`
+
+![左手法则判断旋转方向](img/左手法则判断旋转方向.png)
+
+### 空间缩放
+
+`transform: scale3d(x, y, z);`
+
+- 也可以用 `transform: scaleX(倍数);`
+
+### 立体呈现
+
+`transform-style: preserve-3d;`
+
+- 该属性添加给==父级==
+- 按需求设置子盒子的位置（位移或旋转）
+- 子级使用**子绝父相**
+
+**3D导航实现：**
+
+```css
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.navs {
+    width: 300px;
+    height: 40px;
+    margin: 50px auto;
+}
+
+.navs li {
+    position: relative;
+    float: left;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    transition: all .5s;
+    transform-style: preserve-3d;
+
+    /* 旋转: 看到立体盒子 */
+    /* transform: rotateX(-20deg) rotateY(30deg); */
+}
+
+.navs li a {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+}
+
+.navs li a:first-child {
+    background-color: green;
+    transform: translateZ(20px);
+}
+
+.navs li a:last-child {
+    background-color: orange;
+    /* 躺平x轴旋转  立方体的顶部,位移z(确保看到这个盒子) */
+    transform: rotateX(90deg) translateZ(20px);
+}
+
+/* li:hover 立方体旋转 */
+.navs li:hover {
+    transform: rotateX(-90deg);
+}
+```
+
+```html
+<div class="navs">
+    <ul>
+        <li>
+            <a href="#">首页</a>
+            <a href="#">Index</a>
+        </li>
+    </ul>
+</div>
+```
+
+![3D导航图片](img/3D导航.png)
+
+---
+
+## 动画
+
+```css
+/* 定义动画： */
+@keyframes 动画名称 {
+    from {}
+    to {}
+}
+/* 或者 */
+@keyframes 动画名称 {
+    /* 百分比指的是动画总时长的占比 */
+    0% {}
+    50% {}
+    100% {}
+}
+
+/* 使用动画： */
+animation: 动画名称 动画时长 速度曲线 延迟时间 重复次数 动画方向 执行完毕时状态;
+```
+
+- 动画名称和动画时长必须赋值
+- 取值不分先后顺序
+- 如果有2个时间值，第一个时间表示动画时长，第二个时间表示延迟时间
+  
+一些常用属性：
+
+- 重复次数(无限循环)： **infinite**
+- 动画方向(轮流反向播放动画)： **alternate**
+- 执行完毕时状态：（与上面两个互斥）
+  1. **backwards** ：默认值, 动画停留在最初的状态
+  2. **forwards** ：动画停留在结束状态
+- animation-play-state属性 ：**paused** 暂停动画，配合:hover使用
+
+### 速度曲线
+
+`animation-timing-function: steps(数字);`
+
+- 取值：
+  1. steps(数字)：==逐帧动画==，将动画过程等分成N份，配合**精灵图**使用
+  2. **linear** ：动画从头到尾的速度是相同的
+  3. **ease** ：默认，动画以低速开始，然后加快，在结束前变慢
+
+### 走马灯效果
+
+```css
+img {
+    width: 200px;
+}
+
+.box {
+    width: 600px;
+    height: 120px;
+    border: 5px solid #000;
+    margin: 100px auto;
+    overflow: hidden;
+}
+
+.box ul {
+    width: 2000px;
+    animation: move 10s infinite linear;
+}
+
+.box li {
+    float: left;
+}
+
+@keyframes move {
+    to {
+        transform: translateX(-1400px);
+    }
+}
+
+.box:hover ul {
+    animation-play-state: paused;
+}
+```
+
+```html
+<div class="box">
+    <ul>
+        <li><img src="图片1路径" alt="" /></li>
+        <li><img src="图片2路径" alt="" /></li>
+        <li><img src="图片3路径" alt="" /></li>
+        <li><img src="图片4路径" alt="" /></li>
+        <li><img src="图片5路径" alt="" /></li>
+        <li><img src="图片6路径" alt="" /></li>
+        <li><img src="图片7路径" alt="" /></li>
+
+        <!-- 第567移动的时候,显示区域不能留白 -->
+        <li><img src="图片1路径" alt="" /></li>
+        <li><img src="图片2路径" alt="" /></li>
+        <li><img src="图片3路径" alt="" /></li>
+    </ul>
+</div>
+```
+
+---
+
 ## 补充功能
 
 ### iconfont字体图标
