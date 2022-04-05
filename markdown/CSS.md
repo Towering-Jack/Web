@@ -332,6 +332,17 @@ div#father.c1 {
   - **repeat-x** ：沿着水平方向(x轴)平铺
   - **repeat-y** ：沿着垂直方向(y轴)平铺
 
+#### 背景渐变
+
+```css
+background-image: linear-gradient(
+    transparent,
+    rgba(0, 0, 0, .5)
+);
+```
+
+- **transparent** ：纯透明黑色 rgba(0, 0, 0, 0)
+
 ---
 
 ## 元素显示模式
@@ -537,14 +548,6 @@ top: 100px;
 > 配合绝对定位（子绝父相）
 > 让子元素相对于父元素进行自由移动
 
-```css
-/* 移动到父级盒子中间 */
-left: 50%;
-top: 50%;
-
-transform: translate(-50%, -50%);
-```
-
 ### 固定定位
 
 - 需要配合方位属性实现移动
@@ -563,3 +566,132 @@ top: 100px;
 - 相对、绝对、固定默认层级相同，此时HTML中写在下面的元素层级更高，会覆盖上面的元素
 - 通过**z-index**属性修改定位元素的层级
   - 取整数，默认是0。取值越大，显示顺序越靠上
+
+---
+
+## 平面转换
+
+改变盒子在平面内的形态（位移、旋转、缩放）
+
+### 位移
+
+`transform: translate(水平移动距离, 垂直移动距离);`
+
+- translate()如果只给出一个值, 表示x轴方向移动距离
+- 单独设置某个方向的移动距离：**translateX()** 或 **translateY()**
+- 取值：可用 **像素单位** 或者 **百分比**(基于盒子自身尺寸)
+
+**注意** ：X轴正向为右，Y轴正向为==下==
+
+#### 移动到父级盒子中间
+
+```css
+left: 50%;
+top: 50%;
+
+transform: translate(-50%, -50%);
+```
+
+#### 双开门效果
+
+```css
+.box {
+    width: 1000px;
+    height: 600px;
+    margin: 0 auto;
+    background: url('背景图片路径');
+
+    /* 溢出隐藏 */
+    overflow: hidden;
+}
+
+.box::before,
+.box::after {
+    float: left;
+    content: '';
+    width: 50%;
+    height: 600px;
+    background-image: url('显示图片路径');
+
+    /* 持续时间 */
+    transition: all 0.5s;
+}
+
+/* 右半部分显示图片 */
+.box::after {
+    /* right也可换成 100% */
+    background-position: right 0;
+}
+
+/* 鼠标移入的时候的位置改变的效果 */
+.box:hover::before {
+    transform: translate(-100%);
+}
+
+.box:hover::after {
+    transform: translateX(100%);
+}
+```
+
+### 旋转
+
+`transform: rotate(角度);`
+
+- 角度单位是deg
+- 取值为正，则顺时针旋转，反之为逆时针旋转
+
+`transform-origin: 原点水平位置 原点垂直位置;`
+
+- transform-origin属性：改变转换原点
+- 默认圆点是盒子中心点
+- 取值：
+  - 方位名词（left、top、right、bottom、center）
+  - 像素单位数值
+  - 百分比（参照盒子自身尺寸计算）
+
+### 缩放
+
+`transform: scale(x轴缩放倍数, y轴缩放倍数);`
+
+- 一般情况下，只为scale设置一个值，表示x轴和y轴等比例缩放
+- scale值大于1表示放大，scale值小于1表示缩小
+
+### transform复合属性
+
+```css
+transform:  translate(<translation-value>[,<translation-value>]?)
+            rotate(<angle>)
+            scale(<number>[,<number>]?)
+            skew(<angle>[,<angle>]?);
+```
+
+- **旋转**会改变网页元素的坐标轴向
+- 先写旋转，则后面的转换效果的轴向**以旋转后的轴向为准**，会影响转换结果
+
+---
+
+## 补充功能
+
+### iconfont字体图标
+
+[iconfont素材下载](https://www.iconfont.cn/)
+
+> 在iconfont图标库中，找到需求的图标
+> 先清空自己当前的购物车，避免污染，然后按F12进入console控制台
+> 在控制台中，复制以下代码
+>
+> ```js
+> 第一种方法
+> var iconFontList = document.querySelectorAll('.icon-gouwuche1')
+> Array.from(iconFontList).forEach(v => v.click())
+>
+> 第二种方法
+> var iconFontList = document.querySelectorAll('.icon-gouwuche1');
+> 
+> for(var i = 0; i < iconList.length; i++) {
+>     iconFontList[i].click();
+> }
+> ```
+>
+> 稍微等几秒钟，图标购物车就有当前所有的图标了
+> 在购物车中，加入到图标项目，然后去我的项目中下载
